@@ -1,0 +1,19 @@
+patch:
+  translator/dictionary: luna_pinyin_ziam_tuan.extended
+  translator/preedit_format:
+    - xform/([nlzcs])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/ii/ï/
+    - "xform/' /'/"
+  speller/algebra:
+    - xform/^g([iv])/j$1/
+    - xform/^k([iv])/q$1/
+    - xform/^h([iv])/x$1/
+    - xform/^([jqx])v/$1u/
+    - derive/m$/n/
+    - xform/yv/yu/
+    - "xform/^([a-z]+)$/$1'/"
+  __patch:
+    - combo_pinyin_ziam_tuan_layouts:/use_ziam_tuan_pc_layout
+    - combo_pinyin_layouts:/use_return_to_confirm
+    - grammar:/hant?

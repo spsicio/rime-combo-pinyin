@@ -1,0 +1,100 @@
+ziam_tuan_options:
+  algebra/+:
+    - xlit/BPFDTLGKHZCS/bpfdtlgkhzcs/
+
+    # 通摄三等精組、泥來併入一等，須在尖團音規則前變換
+    # 濃龍蹤從松 ⟨niong/liong/ziong/ciong/siong -> nong/long/zong/cong/song⟩
+    - xform/^([nlzcs])(IRO|VNE)$/$1ong/
+
+    # G,K,H 接 I/Ü 作 ⟨ji/ju, qi/qu, xi/xu⟩
+    - xform/^[g]([IV])/j$1/
+    - xform/^[k]([IV])/q$1/
+    - xform/^[h]([IV])/x$1/
+
+    # ⟨er⟩自成音節
+    - xform/^R$/er/
+    # 舌尖元音⟨ï⟩
+    - xform/^([zcsr]h?)R?$/$1ii/
+
+    - xform/ANE$/ang/
+    - xform/UARO$/uang/
+    - xform/IRO$/iong/
+    - xform/URO$/ong/
+    - xform/VNE$/iong/
+    - xform/UNE$/ong/
+    - xform/INE$/ing/
+    - xform/NE$/eng/
+
+    - xform/AN$/an/
+    - xform/VN$/vn/
+    - xform/UN$/uen/
+    - xform/IN$/in/
+    - xform/N$/en/
+
+    - xform/IAR$/iao/
+    - xform/IR$/iou/
+    - xform/UR$/uei/
+    - xform/AO$/ao/
+    - xform/RO$/ou/
+    - xform/AR$/ai/
+    - xform/RE?$/ei/
+    - xform/AE$/a/
+
+    - xlit/AOEIUV/aoeiuv/
+
+    # 漢語拼音方案的拼寫規則
+    - xform/^i(ng?)$/yi$1/
+    - xform/^i$/yi/
+    - xform/^i/y/
+    - xform/^ong$/weng/
+    - xform/^u$/wu/
+    - xform/^u/w/
+    - xform/^v/yu/
+    - xform/^([jqx])v/$1u/
+    # 一些容錯
+    - xform/^([bpmf])uo$/$1o/
+    - xform/^([dtngkhzcsr]h?)o$/$1uo/
+    - xform/io$/iao/
+    - xform/^([nl])uei$/$1ei/
+    - xform/^([zcs]h|r)i$/$1ii/
+    - xform/^([zcsr]h|r)i([aoe])/$1$2/
+    - xform/^([zcsr]h|r)i(ng?)$/$1e$2/
+    # 拼寫規則
+    - xform/iou$/iu/
+    - xform/uei$/ui/
+    - xform/uen$/un/
+
+    # 聲母獨用時補足隠含的韻母
+    # ⟨bu, pu, fu⟩
+    - xform/^([bpf])$/$1u/
+    # ⟨de, te, ne, le, ge, ke, he⟩
+    # 特別地，⟨me⟩ 對應常用字「麼·么」
+    - xform/^([mdtnlgkh])$/$1e/
+
+  # 並擊完成後套用的式樣
+  output_format:
+    # 追加隔音符號
+    - "xform/^([bpm])([iu]|a|i?e|o|[ae]i|i?ao|[oi]u|i?an|[ie]n|[ei]ng|ang|ong)$/$1$2'/"
+    - "xform/^([fw])(u|a|o|[ae]i|ao|ou|an|en|eng|ang|ong)$/$1$2'/"
+    - "xform/^([dt])([iu]|i?a|i?e|uo|[aeu]i|i?ao|[oi]u|[iu]?an|[ue]n|[ei]ng|ang|ong)$/$1$2'/"
+    - "xform/^([nl])([iuv]|i?a|[iv]?e|u?o|[aeu]i|i?ao|[oi]u|[iu]?an|[iue]n|[ei]ng|i?ang|ong)$/$1$2'/"
+    - "xform/^([gkh])(u|u?a|e|uo|u?ai|[ue]i|ao|ou|u?an|[ue]n|eng|u?ang|ong)$/$1$2'/"
+    - "xform/^([zcs]h?|r)([iu]|u?a|e|uo|u?ai|[ue]i|ao|ou|u?an|[ue]n|eng|u?ang|ong|ii)$/$1$2'/"
+    - "xform/^([jqxy])([iu]|i?a|[iu]?e|o|i?ao|[oi]u|[iu]?an|[iu]n|ing|i?ang|i?ong)$/$1$2'/"
+    - "xform/^([zcs])([iv]|ia|[iv]e|iao|iu|[iv]an|[iv]n|ing|iang|iong)$/$1$2'/"
+    - "xform/^([aeo]|[ae]i|ao|ou|[ae]ng?|er)$/$1'/"
+    # 消除不構成合法音節的並擊組合
+    - "erase/^([A-Za-z+]+)$/"
+
+  # 並擊過程中套用的式樣
+  prompt_format:
+    # 加方括弧
+    - 'xform/^(.*)$/[$1]/'
+
+
+use_ziam_tuan_pc_layout:
+  chord_composer/+:
+    __patch:
+      - combo_pinyin_layouts:/pc_layout_options
+      - combo_pinyin_layouts:/pc_layout_initials 
+      - ziam_tuan_options
