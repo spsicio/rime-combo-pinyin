@@ -11,6 +11,7 @@ patch:
     - xform/^h([iv])/x$1/
     - xform/^([jqx])v/$1u/
     - derive/m$/n/
+    - derive/([bpmfw])ong/$1eng/
     - xform/yv/yu/
     - "xform/^([a-z]+)$/$1'/"
   __patch:
