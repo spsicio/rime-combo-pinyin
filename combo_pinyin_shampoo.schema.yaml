@@ -1,0 +1,34 @@
+# Rime schema
+# encoding: utr-8
+
+__include: combo_pinyin.schema:/
+
+schema:
+  schema_id: combo_pinyin_shampoo
+  name: 宮保拼音·珊璞
+  version: '1.0'
+  author:
+    - 居戎氏 <chen.sst@gmail.com>
+    - 緗縹 <spsicio@foxmail.com>
+  description: |
+    並擊輸入拼音
+    https://github.com/rime/home/wiki/ComboPinyin
+
+    調整原始方案的拼音字母及部分韻母指法。
+    增添對 <eh> 音節的支持。
+  dependencies:
+    - luna_pinyin
+    - combo_pinyin
+
+__patch:
+  - combo_pinyin_shampoo_layout:/use_shampoo_layout
+  # 回車鍵上屏按鍵序列
+  # - combo_pinyin_layouts:/use_return_to_commit_raw_input
+  # 回車鍵確認當前候選
+  - combo_pinyin_layouts:/use_return_to_confirm
+
+  # 使用八股文語言模型
+  - grammar:/hant?
+
+  # 用家自選配置
+  - combo_pinyin_shampoo.custom:/patch?

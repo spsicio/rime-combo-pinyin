@@ -1,0 +1,127 @@
+# 宮保拼音·珊璞佈局
+
+shampoo_layout_config:
+  # 字母表，包含用於並擊的按鍵
+  # 擊鍵雖有先後，形成並擊時，一律以字母表順序排列
+  alphabet: 'swxdecfrvgtbjumn hykiloaqzp'
+  # 拼寫運算規則，將一組並擊編碼轉換爲拼音音節
+  algebra:
+    # 先將物理按鍵字符對應到宮保拼音鍵位中的拼音字母
+    - 'xlit|swxdecfrvgtbjumn hykiloaqzp|SCZHLFGDBKTPIUVQAEONY0WXXXX|'
+    # 以下根據宮保拼音的鍵位分別變換聲母、韻母部分
+    # 空格鍵單擊時產生空白
+    - 'xform/^A$/ /'
+    # 消除無效按鍵
+    - xform/X+//
+  # 並擊完成後套用的式樣
+  output_format: { __include: validate_syllable }
+  # 並擊過程中套用的式樣
+  prompt_format: { __include: combo_pinyin_layouts:/combo_display_format }
+
+rime_rules:
+  # 通摄三等精組、泥來併入一等，須在尖團音規則前變換
+  # 濃龍蹤從松 ⟨niong/liong/ziong/ciong/siong -> nong/long/zong/cong/song⟩
+  - xform/^([nlzcs])(IYW|VN0)$/$1ong/
+
+  # G,K,H 接 I/Ü 作 ⟨ji/ju, qi/qu, xi/xu⟩
+  # 若分尖團，也可用 Z,C,S 與 I/Ü 相拼
+  - xform/^[gz]([IV])/j$1/
+  - xform/^[kc]([IV])/q$1/
+  - xform/^[hs]([IV])/x$1/
+
+  # ⟨er⟩自成音節
+  - xform/^IY$/er/
+  # 舌尖元音⟨ï⟩
+  - xform/^([zcsr]h?)(IY)?$/$1i/
+
+  # 語氣詞
+  - xform/^O$/o/
+  - xform/^E$/eh/
+  - xform/^Q$/yo/
+
+  - xform/A0$/a/
+  - xform/^([bpmf])0$/$1o/
+  - xform/I0$/ie/
+  - xform/U0$/uo/
+  - xform/V0$/ve/
+  # 指法便利
+  - xform/UW/uo/
+
+  - xform/AN$/an/
+  - xform/IN$/in/
+  - xform/VU$/vn/
+  - xform/N$/en/
+  - xform/AN0$/ang/
+  - xform/IN0$/ing/
+  - xform/UN0$/ong/
+  - xform/VN0$/iong/
+  - xform/N0$/eng/
+  # 便利指法
+  - xform/UAYW$/uang/
+  - xform/UYW$/ong/
+  - xform/IYW$/iong/
+
+  - xform/AY$/ai/
+  - xform/Y$/ei/
+  - xform/AW$/ao/
+  - xform/W$/ou/
+
+  - xlit/A0IUV/aeiuv/
+
+  # 漢語拼音方案的拼寫規則
+  - xform/^i(ng?)$/yi$1/
+  - xform/^i$/yi/
+  - xform/^i/y/
+  - xform/^ong$/weng/
+  - xform/^u$/wu/
+  - xform/^u/w/
+  - xform/^v/yu/
+  - xform/^([jqx])v/$1u/
+  # 一些容錯
+  - xform/^([nl])uei$/$1ei/
+  - xform/^([zcsr]h?)i([ae])/$1$2/
+  - xform/^([zcsr]h?)i(ng?)$/$1e$2/
+  # 拼寫規則
+  - xform/uei$/ui/
+  - xform/iou$/iu/
+  - xform/uen$/un/
+
+  # 聲母獨用時補足隠含的韻母
+  # ⟨bu, pu, fu⟩
+  - xform/^([bpf])$/$1u/
+  # ⟨de, te, ne, le, ge, ke, he⟩
+  # 特別地，⟨me⟩ 對應常用字「麼·么」
+  - xform/^([mdtnlgkh])$/$1e/
+
+validate_syllable:
+  # 追加隔音符號
+  - "xform/^([bpm])([iu]|a|i?e|o|[ae]i|i?ao|[oi]u|i?an|[ie]n|[ei]ng|ang|ong)$/$1$2'/"
+  - "xform/^([fw])(u|a|o|[ae]i|ao|ou|an|en|eng|ang|ong)$/$1$2'/"
+  - "xform/^([dt])([iu]|i?a|i?e|uo|[aeu]i|i?ao|[oi]u|[iu]?an|[ue]n|[ei]ng|ang|ong)$/$1$2'/"
+  - "xform/^([nl])([iuv]|i?a|[iv]?e|u?o|[aeu]i|i?ao|[oi]u|[iu]?an|[iue]n|[ei]ng|i?ang|ong)$/$1$2'/"
+  - "xform/^([gkh])(u|u?a|e|uo|u?ai|[ue]i|ao|ou|u?an|[ue]n|eng|u?ang|ong)$/$1$2'/"
+  - "xform/^([zcs]h?|r)([iu]|u?a|e|uo|u?ai|[ue]i|ao|ou|u?an|[ue]n|eng|u?ang|ong)$/$1$2'/"
+  - "xform/^([jqxy])([iu]|i?a|[iu]?e|o|i?ao|[oi]u|[iu]?an|[iu]n|ing|i?ang|i?ong)$/$1$2'/"
+  - "xform/^([aeo]|[ae]i|ao|ou|[ae]ng?|er|eh)$/$1'/"
+  # 消除不構成合法音節的並擊組合
+  - "erase/^([A-Za-z+]+)$/"
+
+# 珊璞佈局 Shampoo Layout
+#
+#   C L D T O U Y W
+#   S H G K E I N 0
+#   Z F B P Q V
+#           A
+#
+# [O] [E] [Q] 僅用於拼寫 <o> <eh> <yo> 三個音節。
+# 沒有介音時，[0] 拼寫 <b, p, m, f> 之後的 [o] 以及其他的 <e>。
+# 存在介音時，[0] 與介音 <i, u, ü> 分別拼寫 <ie, uo, üe>。
+# [Y] 用於拼寫 <ei> 或者與 [A] 合拼 <ai>。
+# [W] 用於拼寫 <ou> 或者與 [A] 合拼 <ao>。
+# [IY] 用於拼寫 <er> 和 <zhi, chi, shi, ri, zi, ci, si> 中的舌尖元音。
+use_shampoo_layout:
+  chord_composer: { __include: shampoo_layout_config }
+  __patch:
+    # 並擊轉拼音
+    - chord_composer/algebra/+: {__include: combo_pinyin_layouts:/default_layout_initial_rules }
+    - chord_composer/algebra/+: {__include: rime_rules }
