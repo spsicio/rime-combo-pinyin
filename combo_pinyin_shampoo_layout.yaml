@@ -1,5 +1,5 @@
 # 宮保拼音·珊璞佈局
-# version 1.1
+# version 1.2
 
 shampoo_layout_config:
   # 字母表，包含用於並擊的按鍵
@@ -26,9 +26,9 @@ rime_rules:
 
   # G,K,H 接 I/Ü 作 ⟨ji/ju, qi/qu, xi/xu⟩
   # 若分尖團，也可用 Z,C,S 與 I/Ü 相拼
-  - xform/^[gz]([IV])/j$1/
-  - xform/^[kc]([IV])/q$1/
-  - xform/^[hs]([IV])/x$1/
+  - xform/^[gz]([IVEQ])/j$1/
+  - xform/^[kc]([IVEQ])/q$1/
+  - xform/^[hs]([IVEQ])/x$1/
 
   # ⟨er⟩自成音節
   - xform/^IY$/er/
@@ -130,7 +130,7 @@ validate_syllable:
 #           A
 #
 # [O] [E] [Q] 用於拼寫 <o> <eh> <yo> 三個音節。
-# 特别地，允许使用 [EN] [QN] 拼寫 <ian> <van>。
+# 特别地，允许使用 [EN] [QN] 拼寫 <ian> <üan>。
 # 沒有介音時，[0] 拼寫 <b, p, m, f> 之後的 [o] 以及其他的 <e>。
 # 存在介音時，[0] 與介音 <i, u, ü> 分別拼寫 <ie, uo, üe>。
 # [Y] 用於拼寫 <ei> 或者與 [A] 合拼 <ai>。
