@@ -6,7 +6,7 @@ __include: combo_pinyin.schema:/
 schema:
   schema_id: combo_pinyin_shampoo
   name: 宮保拼音·珊璞
-  version: '1.0'
+  version: '1.1'
   author:
     - 居戎氏 <chen.sst@gmail.com>
     - 緗縹 <spsicio@foxmail.com>

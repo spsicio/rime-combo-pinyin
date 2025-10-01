@@ -1,4 +1,5 @@
 # 宮保拼音·珊璞佈局
+# version 1.1
 
 shampoo_layout_config:
   # 字母表，包含用於並擊的按鍵
@@ -39,6 +40,10 @@ rime_rules:
   - xform/^E$/eh/
   - xform/^Q$/yo/
 
+  # 特殊鍵位
+  - xform/EN$/ian/
+  - xform/QN$/van/
+
   - xform/A0$/a/
   - xform/^([bpmf])0$/$1o/
   - xform/I0$/ie/
@@ -78,6 +83,8 @@ rime_rules:
   - xform/^v/yu/
   - xform/^([jqx])v/$1u/
   # 一些容錯
+  - xform/^([bpmf])uo$/$1o/
+  - xform/^([bpmf])ong$/$1eng/
   - xform/^([nl])uei$/$1ei/
   - xform/^([zcsr]h?)i([ae])/$1$2/
   - xform/^([zcsr]h?)i(ng?)$/$1e$2/
@@ -94,6 +101,15 @@ rime_rules:
   - xform/^([mdtnlgkh])$/$1e/
 
 validate_syllable:
+  # 沒有對應漢字的音節
+  - "erase/^(f|ru?)ai$/"
+  - "erase/^(ch|r)ei$/"
+  - "erase/^fao$/"
+  - "erase/^bou$/"
+  - "erase/^[bpft]iu$/"
+  - "erase/^[tl]en$/"
+  - "erase/^[rzcs]uang$/"
+  - "erase/^shong$/"
   # 追加隔音符號
   - "xform/^([bpm])([iu]|a|i?e|o|[ae]i|i?ao|[oi]u|i?an|[ie]n|[ei]ng|ang|ong)$/$1$2'/"
   - "xform/^([fw])(u|a|o|[ae]i|ao|ou|an|en|eng|ang|ong)$/$1$2'/"
@@ -113,7 +129,8 @@ validate_syllable:
 #   Z F B P Q V
 #           A
 #
-# [O] [E] [Q] 僅用於拼寫 <o> <eh> <yo> 三個音節。
+# [O] [E] [Q] 用於拼寫 <o> <eh> <yo> 三個音節。
+# 特别地，允许使用 [EN] [QN] 拼寫 <ian> <van>。
 # 沒有介音時，[0] 拼寫 <b, p, m, f> 之後的 [o] 以及其他的 <e>。
 # 存在介音時，[0] 與介音 <i, u, ü> 分別拼寫 <ie, uo, üe>。
 # [Y] 用於拼寫 <ei> 或者與 [A] 合拼 <ai>。
