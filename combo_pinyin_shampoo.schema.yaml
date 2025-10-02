@@ -5,8 +5,8 @@ __include: combo_pinyin.schema:/
 
 schema:
   schema_id: combo_pinyin_shampoo
-  name: 宮保拼音·珊璞
-  version: '1.2'
+  name: 珊璞拼音
+  version: '2.0'
   author:
     - 居戎氏 <chen.sst@gmail.com>
     - 緗縹 <spsicio@foxmail.com>
@@ -14,6 +14,7 @@ schema:
     並擊輸入拼音
     https://github.com/rime/home/wiki/ComboPinyin
 
+    實爲宮保拼音・珊璞佈局。
     調整原始方案的拼音字母及部分韻母指法。
     增添對 <eh> 音節的支持。
   dependencies:
