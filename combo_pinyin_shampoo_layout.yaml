@@ -1,5 +1,5 @@
 # 宮保拼音・珊璞佈局
-# version 2.0
+# version 2.1
 
 shampoo_layout_config:
   # 字母表，包含用於並擊的按鍵
@@ -35,9 +35,11 @@ rime_rules:
   - xform/QA?W?$/Iao/
   - xform/MA?N$/Ian/
   - xform/OA?N$/uan/
+  - xform/OA?Y$/uan/
   - xform/QA?N$/Van/
   - xform/MA?NE/ang/
   - xform/QA?NE$/Iang/
+  - xform/OA?NE$/uang/
   - xform/OA?YW$/uang/
 
   # G,K,H 接 I/Ü 作 ⟨ji/ju, qi/qu, xi/xu⟩
@@ -108,6 +110,7 @@ rime_rules:
 validate_syllable:
   # 沒有對應漢字的音節
   - "erase/^(f|ru?)ai$/"
+  - "erase/^[zcs]uai$/"
   - "erase/^(ch|r)ei$/"
   - "erase/^fao$/"
   - "erase/^bou$/"
@@ -142,8 +145,8 @@ validate_syllable:
 # [Ä] [O] [Ö] 單獨按下時拼寫 <o> <eh> <yo> 三個僅用於語氣詞的音節。
 # 此外，允许使用以下簡拼：
 # - [ÄY] [OW] [ÖW] 拼寫 <ai> <ao> <iao>。（可以省略韻尾的 [Y] [W]）
-# - [ÄN] [ON] [ÖN] 拼寫 <ian> <uan> <üan>。
-# - [ÄNE] [ÖNE] [OYW] 拼寫 <ang> <iang> <uang>。
+# - [ÄN] [ON]/[OY] [ÖN] 拼寫 <ian> <uan> <üan>。
+# - [ÄNE] [ÖNE] [ONE]/[OYW] 拼寫 <ang> <iang> <uang>。
 use_shampoo_layout:
   chord_composer: { __include: shampoo_layout_config }
   __patch:
